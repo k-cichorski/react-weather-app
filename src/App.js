@@ -1,6 +1,6 @@
 import React from 'react';
-import './css/App.css';
 import './css/style.css';
+import './css/App.css';
 import './css/LoadingSpinner.css';
 import SearchModule from "./components/SearchModule";
 import Header from './components/Header';

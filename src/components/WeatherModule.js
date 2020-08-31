@@ -18,11 +18,13 @@ import windspeed from '../img/icons/wind-speed.svg';
 import NextDayForecast from "./NextDayForecast";
 import {useStateValue} from "../store/StateProvider";
 import {REMOVE_CITY, TOGGLE_LOADING_ANIMATION} from "../store/reducer";
+import {useMediaQuery} from 'react-responsive';
 
 
 
 function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity, currentWindSpeed, icon, forecast, index}) {
     const [, dispatch] = useStateValue();
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const icons = {
         'clear-day': clearDay,
         'clear-night': clearNight,
@@ -79,6 +81,9 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
         dispatch(action);
     }
 
+    const ConditionalDiv = ({ condition, wrapper, children }) =>
+        condition ? wrapper(children) : children;
+
     return (
         <div className="module module__weather__pattern">
             <button className="btn btn--icon btn--close"
@@ -87,18 +92,22 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
             <div className="weather">
                 <div className="weather__icon"><img src={icons[icon]}/></div>
 
-                <div className="weather__info">
-                    <div className="city">
-                        <span className="city__name">{cityName}</span>
-                    </div>
-                    <div className="temperature"><span className="temperature__value">{currentTemp}</span>&deg;C</div>
-                </div>
+                <ConditionalDiv condition={isTabletOrMobile} wrapper={children => <div>{children}</div>}>
 
-                <ul className="weather__details">
-                    <li><img src={pressure}/> <span className="pressure__value">{currentPressure} hPa</span></li>
-                    <li><img src={humidity}/> <span className="humidity__value">{currentHumidity}%</span></li>
-                    <li><img src={windspeed}/> <span className="wind-speed__value">{currentWindSpeed} m/s</span></li>
-                </ul>
+                    <div className="weather__info">
+                        <div className="city">
+                            <span className="city__name">{cityName}</span>
+                        </div>
+                        <div className="temperature"><span className="temperature__value">{currentTemp}</span>&deg;C</div>
+                    </div>
+
+                    <ul className="weather__details">
+                        <li><img src={pressure}/> <span className="pressure__value">{currentPressure} hPa</span></li>
+                        <li><img src={humidity}/> <span className="humidity__value">{currentHumidity}%</span></li>
+                        <li><img src={windspeed}/> <span className="wind-speed__value">{currentWindSpeed} m/s</span></li>
+                    </ul>
+
+                </ConditionalDiv>
 
                 <ul className="weather__forecast">
                     {

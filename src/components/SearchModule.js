@@ -76,12 +76,15 @@ function SearchModule() {
                     }
                 } catch(err) {
                     alert(err);
+                    dispatch({type:TOGGLE_LOADING_ANIMATION});
                 }
             } else {
                 alert(response.statusText);
+                dispatch({type:TOGGLE_LOADING_ANIMATION});
             }
         } catch(err) {
             alert(err);
+            dispatch({type:TOGGLE_LOADING_ANIMATION});
         }
     }
 

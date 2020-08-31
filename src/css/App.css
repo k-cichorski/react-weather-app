@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 500px) {
+  .module__weather__pattern {
+    padding: 5px;
+  }
+}
