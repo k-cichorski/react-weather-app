@@ -5,7 +5,7 @@ import {useStateValue} from "../store/StateProvider";
 import {SHOW} from '../store/reducer';
 
 function Header() {
-    const [, dispatch] = useStateValue();
+    const [{loading}, dispatch] = useStateValue();
     const showSearch = () => {
         const action = {
             type: SHOW,
@@ -18,7 +18,7 @@ function Header() {
         <header>
             <div className="container">
                 <div className="logo"><img alt="logo" src={logo}/> Weather App</div>
-                <button className="btn" id="add-city" onClick={showSearch}>Dodaj miasto <i className="material-icons">add_circle</i></button>
+                <button className="btn" id="add-city" onClick={!loading? showSearch:()=>{}}>Dodaj miasto <i className="material-icons">add_circle</i></button>
             </div>
         </header>
     )
