@@ -9,14 +9,14 @@ import WeatherModule from "./components/WeatherModule";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 function App() {
-    const [{loading, cities}] = useStateValue();
+    const [{loading, cities, hidden}] = useStateValue();
 
     return (
     <div className="App">
         <Header />
         <div className="container">
             {loading && <CircularProgress className="loading_spinner" />}
-            <SearchModule />
+            {!hidden.SearchModule && <SearchModule/>}
             {
                 cities.map((city, index) => (
                     <WeatherModule key={index} cityName={city.name} currentTemp={city.current.temp}

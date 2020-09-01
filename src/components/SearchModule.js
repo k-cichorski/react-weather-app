@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import '../css/style.css';
+import '../css/SearchModule.css';
 import {useStateValue} from '../store/StateProvider';
 import {TOGGLE_LOADING_ANIMATION, HIDE, ADD_CITY} from "../store/reducer";
 
 function SearchModule() {
-    const [{hidden}, dispatch] = useStateValue();
+    const [, dispatch] = useStateValue();
     const [searchCityName, setSearchCityName] = useState('');
 
     const getWeather = async (lat, lon) => {
@@ -72,7 +73,6 @@ function SearchModule() {
                             city: cityWeather
                         }
                         dispatch(action);
-                        setSearchCityName('');
                     }
                 } catch(err) {
                     alert(err);
@@ -89,7 +89,7 @@ function SearchModule() {
     }
 
     return (
-        <div className="module module__form" hidden={hidden.SearchModule}>
+        <div className="module module__form SearchModule">
             <button className="btn btn--icon btn--close" onClick={hideSelf}><i className="material-icons">close</i></button>
             <h2>Znajdź miasto</h2>
 
@@ -98,7 +98,6 @@ function SearchModule() {
                        onChange={e =>setSearchCityName(e.target.value)} value={searchCityName}/>
                 <button type="submit" onClick={e => searchCity(e)}><i className="material-icons">search</i></button>
             </form>
-            <div className="search-error"></div>
         </div>
     )
 }

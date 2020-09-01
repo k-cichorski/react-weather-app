@@ -19,6 +19,7 @@ import NextDayForecast from "./NextDayForecast";
 import {useStateValue} from "../store/StateProvider";
 import {REMOVE_CITY, TOGGLE_LOADING_ANIMATION} from "../store/reducer";
 import {useMediaQuery} from 'react-responsive';
+import '../css/WeatherModule.css';
 
 
 
@@ -85,7 +86,7 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
         condition ? wrapper(children) : children;
 
     return (
-        <div className="module module__weather__pattern">
+        <div className="module module__weather__pattern WeatherModule">
             <button className="btn btn--icon btn--close"
                     onClick={() => (removeModule(index))}><i className="material-icons">close</i></button>
 
