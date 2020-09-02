@@ -9,7 +9,6 @@ function SearchModule() {
     const [searchCityName, setSearchCityName] = useState('');
 
     const getWeather = async (lat, lon) => {
-        try {
             let weather = await fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/d3862a3bd8444732969612f2e09f0e92/${lat},${lon}?units=si&lang=pl`);
             if (weather.ok) {
                 weather = await weather.json();
@@ -17,10 +16,6 @@ function SearchModule() {
             } else {
                 alert(weather.statusText);
             }
-
-        } catch(err) {
-            alert(err);
-        }
     }
 
     const hideSelf = () => {
@@ -40,46 +35,41 @@ function SearchModule() {
         dispatch(toggleLoading);
         try {
             const response = await fetch(`https://cors-anywhere.herokuapp.com/http://api.positionstack.com/v1/forward?access_key=7c47d1f326b1d04fd55ed7685d5d87c3&query=${searchCityName}`);
-            if (response.ok) {
-                try {
-                    let location = await response.json();
-                    if (location.data.length > 0) {
-                        const lat = location['data'][0]['latitude'];
-                        const lon = location['data'][0]['longitude'];
-                        let city = location['data'][0]['name'];
-                        let region = location['data'][0]['country'];
-                        const weather = await getWeather(lat, lon);
-                        const currently = weather['currently'];
-                        const daily = weather['daily']['data'];
-                        const cityWeather = {
-                            name: `${city}, ${region}`,
-                            current: {
-                                temp: currently['temperature'].toFixed(1),
-                                humidity: currently['humidity'],
-                                pressure: Math.floor(currently['pressure']),
-                                windspeed: currently['windSpeed'],
-                                icon: currently['icon']
-                            },
-                            forecast: [
-                                daily[0],
-                                daily[1],
-                                daily[2],
-                                daily[3],
-                                daily[4]
-                            ]
-                        }
-                        const action = {
-                            type: ADD_CITY,
-                            city: cityWeather
-                        }
-                        dispatch(action);
-                    }
-                } catch(err) {
-                    alert(err);
-                    dispatch({type:TOGGLE_LOADING_ANIMATION});
+            let location = await response.json();
+            if (location.data.length > 0) {
+                if (Array.isArray(location.data[0])) {throw 'Bad server response!'}
+                const lat = location['data'][0]['latitude'];
+                const lon = location['data'][0]['longitude'];
+                let city = location['data'][0]['name'];
+                let region = location['data'][0]['country'];
+                const weather = await getWeather(lat, lon);
+                const currently = weather['currently'];
+                const daily = weather['daily']['data'];
+                const cityWeather = {
+                    name: `${city}, ${region}`,
+                    current: {
+                        temp: currently['temperature'].toFixed(1),
+                        humidity: currently['humidity'],
+                        pressure: Math.floor(currently['pressure']),
+                        windspeed: currently['windSpeed'],
+                        icon: currently['icon']
+                    },
+                    forecast: [
+                        daily[0],
+                        daily[1],
+                        daily[2],
+                        daily[3],
+                        daily[4]
+                    ]
                 }
-            } else {
-                alert(response.statusText);
+                const action = {
+                    type: ADD_CITY,
+                    city: cityWeather
+                }
+                dispatch(action);
+            }
+            else {
+                alert('No such city!');
                 dispatch({type:TOGGLE_LOADING_ANIMATION});
             }
         } catch(err) {

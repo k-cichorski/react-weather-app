@@ -93,7 +93,7 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
             <div className="weather">
                 <div className="weather__icon"><img src={icons[icon]}/></div>
 
-                <ConditionalDiv condition={isTabletOrMobile} wrapper={children => <div>{children}</div>}>
+                <ConditionalDiv condition={isTabletOrMobile} wrapper={children => <div className="conditional">{children}</div>}>
 
                     <div className="weather__info">
                         <div className="city">
