@@ -38,12 +38,29 @@
 }
 
 @media (max-width: 500px) {
+  .weather {
+    flex-direction: column !important;
+  }
   .module__weather__pattern {
     padding: 5px;
   }
   .weather__info {
     border-left: 1px solid #e9e9e9;
     padding-left: 15px;
+  }
+  .weatherIconAndInfo {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+  }
+  .weather__icon {
+    align-self: center;
+    margin-left: 18px;
+  }
+  .weather__icon > img {
+    margin: 0 20px;
+  }
+  .weather__details > li {
+    justify-content: center !important;
   }
 }
 
@@ -63,10 +80,10 @@
   padding: 0 5px !important;
 }
 
-.conditional {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
+.conditionalWeatherInfoDiv {
+  display: flex !important;
+  flex-flow: column !important;
+  justify-content: center !important;
 }
 
 .weather__details {
