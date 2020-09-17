@@ -47,13 +47,13 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
 
     function generateWeek() {
         const weekday = [
-            "Niedziela",
-            "Poniedziałek",
-            "Wtorek",
-            "Środa",
-            "Czwartek",
-            "Piątek",
-            "Sobota"
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
         ];
         const d = new Date();
         let week = [];
