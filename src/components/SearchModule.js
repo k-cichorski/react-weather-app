@@ -78,10 +78,6 @@ function SearchModule() {
         }
     }
 
-    const focusOnInput = (input) => {
-        input.focus();
-    }
-
     return (
         <div className="module module__form SearchModule">
             <button className="btn btn--icon btn--close" onClick={hideSelf}><i className="material-icons">close</i></button>
