@@ -18,7 +18,7 @@ function Header() {
         <header>
             <div className="container">
                 <div className="logo"><img alt="logo" src={logo}/> Weather App</div>
-                <button className="btn" id="add-city" onClick={!loading? showSearch:()=>{}}>Add city <i className="material-icons">add_circle</i></button>
+                <button className="btn" id="add-city" onClick={!loading? showSearch:null}>Add city <i className="material-icons">add_circle</i></button>
             </div>
         </header>
     )

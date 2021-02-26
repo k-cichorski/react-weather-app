@@ -50,7 +50,10 @@ function reducer(state, action) {
                 ...state,
                 cities: newCities
             }
-    }
+        
+        default:
+            return state
+        }
 }
 
 export default reducer;

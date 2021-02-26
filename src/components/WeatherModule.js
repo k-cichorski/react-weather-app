@@ -72,7 +72,7 @@ function WeatherModule({cityName, currentTemp, currentPressure, currentHumidity,
             type: TOGGLE_LOADING_ANIMATION
         }
         dispatch(action);
-    }, [])
+    }, [dispatch])
 
     const removeModule = (index) => {
         const action = {
